@@ -14,13 +14,13 @@ variables:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.11.9'
+    versionSpec: '3.x'
     addToPath: true
     architecture: 'x64'
-
-- task: InstallTerraform@0
+- task: TerraformInstaller@1
+  displayName: install terraform
   inputs:
-    terraformVersion: '1.x.x'
+    terraformVersion: latest
 
 - script: |
     terraform init
