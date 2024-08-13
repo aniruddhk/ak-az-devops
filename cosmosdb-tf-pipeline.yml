@@ -17,7 +17,7 @@ steps:
     versionSpec: '3.x'
     addToPath: true
     architecture: 'x64'
-- task: TerraformInstaller@1
+- task: TerraformInstaller@0
   displayName: install terraform
   inputs:
     terraformVersion: latest
