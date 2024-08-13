@@ -1,0 +1,35 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  TF_VAR_subscription_id: '$(AzureSubscriptionId)'
+  TF_VAR_client_id: '$(servicePrincipalId)'
+  TF_VAR_client_secret: '$(servicePrincipalKey)'
+  TF_VAR_tenant_id: '$(tenantId)'
+  TF_VAR_location: 'West Europe'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+
+- task: InstallTerraform@0
+  inputs:
+    terraformVersion: '1.x.x'
+
+- script: |
+    terraform init
+  displayName: 'Terraform Init'
+
+- script: |
+    terraform plan -out tfplan
+  displayName: 'Terraform Plan'
+
+- script: |
+    terraform apply -auto-approve tfplan
+  displayName: 'Terraform Apply'
+
